@@ -26,6 +26,10 @@ def handle_events():
                 item_mode.finish()
             else:
                 item_mode.init()
+        elif (item_mode.active and event.type == SDL_KEYDOWN and
+              event.key == SDLK_0):
+            boy.ball_type = 0
+            item_mode.finish()
         else:
             boy.handle_event(event)
 
