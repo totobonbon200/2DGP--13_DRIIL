@@ -3,6 +3,7 @@ import game_world
 import game_framework
 import title_mode
 import pause_mode
+import item_mode
 from boy import Boy
 from grass import Grass
 
@@ -20,6 +21,11 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
             game_framework.push_mode(pause_mode)
             return
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_i:
+            if item_mode.active:
+                item_mode.finish()
+            else:
+                item_mode.init()
         else:
             boy.handle_event(event)
 
@@ -27,6 +33,7 @@ def handle_events():
 
 def init():
     global boy
+    item_mode.finish()
 
 
     boy = Boy()
@@ -36,6 +43,7 @@ def init():
     game_world.add_oject(grass, 0)
 
 def finish():
+    item_mode.finish()
     game_world.clear()
 
 
@@ -57,6 +65,7 @@ def update():
 def render():
     clear_canvas()
     game_world.render()
+    item_mode.render()
     update_canvas()
 
 running = True
